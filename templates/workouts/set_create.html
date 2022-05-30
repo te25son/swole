@@ -1,0 +1,29 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS='border border-danger' %}
+<form hx-post="{% url 'workouts:set_create' workout.id exercise.id %}" hx-swap="innerHTML">
+    {% csrf_token %}
+    <div class="row row-cols-sm-auto g-3 align-items-center mb-5">
+        <div class="col align-self-baseline">
+            <div class="input-group">
+                {% if form %}
+                {% render_field form.rep_count type="text" name="rep_count" class="form-control" placeholder="Reps" %}
+                {% else %}
+                <input type="text" name="rep_count" class="form-control" placeholder="Reps">
+                {% endif %}
+            </div>
+            <div class="text-danger">{{ form.rep_count.errors|first }}</div>
+        </div>
+        <div class="col align-self-baseline">
+            <div class="input-group">
+                {% if form %}
+                {% render_field form.weight type="text" name="weight" class="form-control" placeholder="Weight in KGS" %}
+                {% else %}
+                <input type="text" name="weight" class="form-control" placeholder="Weight in KGS">
+                {% endif %}
+                <button class="btn btn-outline-primary" type="submit">Add set</button>
+            </div>
+            <div class="text-danger">{{ form.weight.errors|first }}</div>
+        </div>
+    </div>
+</form>
+{% endwith %}

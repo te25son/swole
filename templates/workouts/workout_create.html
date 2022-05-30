@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS='border border-danger' %}
+<form hx-post="{% url 'workouts:workout_create' %}">
+    {% csrf_token %}
+    <div class="card mx-auto" style="width: 30rem;">
+        <div class="card-body">
+            <div class="text-center">
+                <h3 class="card-title">Add workout</h3>
+            </div>
+            {% if form.non_field_errors %}
+            {% render_field form.name|add_class:"border border-danger" name="name" class="form-control" placeholder="Name"%}
+            {% render_field form.date|add_class:"border border-danger" name="date" class="form-control mt-3" %}
+            <div class="text-danger">{{ form.non_field_errors|first }}</div>
+            {% else %}
+            {% render_field form.name name="name" class="form-control" placeholder="Name"%}
+            <div class="text-danger">{{ form.name.errors|first }}</div>
+            {% render_field form.date name="date" class="form-control mt-3" %}
+            <div class="text-danger">{{ form.date.errors|first }}</div>
+            {% endif %}
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-outline-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endwith %}

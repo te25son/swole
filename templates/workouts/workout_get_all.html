@@ -1,0 +1,15 @@
+<div class="text-center mb-5">
+    <h1 class="display-5">My Workouts</h1>
+</div>
+
+<div class="list-group list-group-flush">
+    {% for workout in workouts %}
+    <a href="#" class="list-group-item list-group-item-active"
+        hx-get="{% url 'workouts:workout_detail' workout.id %}"
+        hx-target="#base-content"
+        hx-push-url="true"
+        hx-swap="innerHTML">
+        {{ workout.date|date:"M d Y" }} - {{ workout.name }}
+    </a>
+    {% endfor %}
+</div>

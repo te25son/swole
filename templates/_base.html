@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="htmx-config" content='{"historyCacheSize": 0, "refreshOnHistoryMiss": true}'>
+        <title>{% block title %}Swole{% endblock title %}</title>
+        
+        <!-- Bootsrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.13.10/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.13.10/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.13.10/dist/js/uikit-icons.min.js"></script>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'workouts:home' %}"><span uk-icon="home"></span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="#"
+                                hx-get="{% url 'workouts:workout_create' %}"
+                                hx-push-url="true"
+                                hx-target="#base-content"
+                                hx-swap="innerHTML">
+                                <span uk-icon="plus-circle"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span uk-icon="user"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item"
+                                    hx-get="{% url 'workouts:home' %}"
+                                    hx-target="#base-content"
+                                    hx-push-url="true"
+                                    hx-swap="innerHTML">
+                                    My workouts
+                                </a>
+                                <a class="dropdown-item" href="#">My exercises</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item"
+                                    hx-get="{% url 'account_logout' %}"
+                                    hx-target="#base-content"
+                                    hx-push-url="true"
+                                    hx-swap="innerHTML">
+                                    Sign out
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% else %}
+        <div class="container mt-5">
+            <div class="text-center">
+                <h1 class="display-2">Swole</h1>
+            </div>
+        </div>
+        {% endif %}
+        <div id="base-content" class="container mb-5 mt-5" hx-history-elt>
+            {% block content %}
+            {% endblock content %}
+        </div>
+        <div hx-get="{% url 'workouts:workout_get_all' %}"
+            hx-trigger="workout_deleted from:body, workout_created from:body"
+            hx-push-url="true"
+            hx-target="#base-content"
+            hx-swap="innerHTML">       
+        </div>
+        <footer class="mt-5 pt-3 pb-3 text-center">
+            &copy; {% now "Y" %} Swole
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+        <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
+        <!-- Hyperscript is needed for sweetalert -->
+        <script src="https://unpkg.com/hyperscript.org@0.9.5"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </body>
+</html>

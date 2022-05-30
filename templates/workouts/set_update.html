@@ -1,0 +1,39 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS='border border-danger' %}
+<tr id="set-{{ set.id }}">
+    <form id="set_update_{{ set.id }}" hx-post="{% url 'workouts:set_update' workout.id exercise.id set.id %}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' hx-swap="outerHTML" hx-target="#set-{{ set.id }}">
+        <th scope="row">
+            <div style="display: block;">{{ set }}</div>
+        </th>
+        <td>
+            <div class="input-group-sm">
+                <input type="text" name="rep_count" class="form-control" form="set_update_{{ set.id }}" value="{{ set.rep_count }}">
+            </div>
+            {% if form.errors %}
+            <div class="text-danger" form="set_update_{{ set.id }}">{{ form.rep_count.errors|first }}</div>
+            {% endif %}
+        </td>
+        <td>
+            <div class="input-group-sm">
+                <input type="text" name="weight" class="form-control" form="set_update_{{ set.id }}" value="{{ set.weight }}">
+            </div>
+            <div class="text-danger" form="set_update_{{ set.id }}">{{ form.weight.errors|first }}</div>
+        </td>
+        <td>
+            <div style="display: inline-block;">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button class="btn btn-outline-secondary" form="set_update_{{ set.id }}" type="submit">Save</button>
+                    {% include 'workouts/set_delete.html' %}
+                    <!-- Swap the tr at the top of this file with the tr in set_get -->
+                <button class="btn btn-sm btn-outline-secondary ms-1 rounded"
+                    hx-get="{% url 'workouts:set_get' workout.id exercise.id set.id %}"
+                    hx-target="#set-{{ set.id }}"
+                    hx-swap="outerHTML">
+                    X
+                </button>
+                </div>
+            </div>
+        </td>
+    </form>
+</tr>
+{% endwith %}

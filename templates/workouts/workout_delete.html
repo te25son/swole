@@ -1,0 +1,20 @@
+<a  hx-trigger="delete_workout"
+    hx-post="{% url 'workouts:workout_delete' workout.id %}"
+    hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+    _="on click
+        Swal.mixin({    
+            customClass: {
+                confirmButton: 'btn btn-danger ms-3',
+                cancelButton: 'btn btn-outline-secondary'
+            },
+            buttonsStyling: false
+        }).fire({
+            icon: 'warning',
+            text: 'Do you want to permanently delete this workout?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            reverseButtons: true
+        })
+        if result.isConfirmed trigger delete_workout">
+    <span uk-icon="trash"></span>
+</a>

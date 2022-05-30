@@ -1,0 +1,24 @@
+{% for exercise in exercises %}
+<h2>{{ exercise.name }}</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Reps</th>
+            <th scope="col">Weight</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <!-- get all sets to this exercise/workout combo whenever loading the element, creating a new set, or deleting a set -->
+    <tbody id="exercise-sets"
+        hx-get="{% url 'workouts:set_get_all' workout.id exercise.id %}"
+        hx-trigger="load, update_sets_{{ exercise.id }} from:body, delete_set_from_{{ exercise.id }} from:body"
+        hx-swap="innerHTML">
+    </tbody>
+</table>
+<!-- Reload set_create form so the data is cleared -->
+<div hx-get="{% url 'workouts:set_create' workout.id exercise.id %}"
+    hx-trigger="load, update_sets_{{ exercise.id }} from:body"
+    hx-swap="innerHTML">
+</div>
+{% endfor %}

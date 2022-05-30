@@ -1,0 +1,21 @@
+<button class="btn btn-danger rounded-end" 
+    hx-trigger="delete"
+    hx-post="{% url 'workouts:set_delete' workout.id exercise.id set.id %}"
+    hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+    _="on click
+        Swal.mixin({    
+            customClass: {
+                confirmButton: 'btn btn-danger ms-3',
+                cancelButton: 'btn btn-outline-secondary'
+            },
+            buttonsStyling: false
+        }).fire({
+            icon: 'warning',
+            text: 'Do you want to permanently delete this set?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            reverseButtons: true
+        })
+        if result.isConfirmed trigger delete">
+    Delete
+</button>

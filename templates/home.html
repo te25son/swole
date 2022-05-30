@@ -1,0 +1,10 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div hx-get="{% url 'workouts:workout_get_all' %}"
+    hx-trigger="load"
+    hx-push-url="true"
+    hx-target="#base-content"
+    hx-swap="innerHTML">
+</div>
+{% endblock content %}

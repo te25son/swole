@@ -1,0 +1,8 @@
+<tr hx-get="{% url 'workouts:set_update' workout.id exercise.id set.id %}"
+    hx-trigger="click"
+    hx-swap="outerHTML">
+    <th scope="row">{{ set }}</th>
+    <td>{{ set.rep_count }}</td>
+    <td>{{ set.weight }} {{ set.unit }}</td>
+    <td></td>
+</tr>

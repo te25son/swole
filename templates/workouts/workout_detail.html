@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col align-self-start">
+        <h1 class="display-6">{{ workout.name }} - {{ workout.date|date:"M d Y" }}</h1>
+    </div>
+    <div class="col align-self-center text-end">
+        {% include 'workouts/workout_delete.html' %}
+    </div>
+</div>
+<br>
+<!-- Get all exercises whenever the element is loaded or a new exercise is craeted -->
+<div hx-get="{% url 'workouts:exercise_get_all' workout.id %}"
+    hx-trigger="load, update_exercises from:body"
+    hx-target="#exercises"
+    hx-swap="innerHTML">
+</div>
+<div id="exercises"></div>
+<br>
+<div id="add-exercise">
+    {% if has_exercises %}
+    <!-- Original create_exercise button. Overridden and duplicated in exercise_create -->
+    <button type="button" class="btn btn-success" data-bs-toggle="dropdown" aria-expanded="false">
+        Add exercise
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" 
+            hx-get="{% url 'workouts:exercise_create' workout.id 1 %}" 
+            hx-swap="innerHTML" 
+            hx-target="#add-exercise">Add new</a>
+        </li>
+        <li><a class="dropdown-item" 
+            hx-get="{% url 'workouts:exercise_create' workout.id 0 %}" 
+            hx-swap="innerHTML" 
+            hx-target="#add-exercise">From existing</a>
+        </li>
+    </ul>
+    {% else %}
+    <button type="button" class="btn btn-success"
+        hx-get="{% url 'workouts:exercise_create' workout.id 1 %}" 
+        hx-swap="innerHTML" 
+        hx-target="#add-exercise">
+        Add exercise
+    </button>
+    {% endif %}
+</div>

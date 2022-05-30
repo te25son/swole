@@ -1,0 +1,42 @@
+{% load widget_tweaks %}
+{% with WIDGET_ERROR_CLASS='border border-danger' %}
+{% if form or exercises %}
+<form hx-post="{% url 'workouts:exercise_create' workout.id is_new %}" hx-swap="innerHTML">
+    {% csrf_token %}
+    <div class="row row-cols-sm-auto g-3 align-items-center mb-5">
+        <div class="col align-self-baseline">
+            <div class="input-group">
+                {% if is_new == 1 %}
+                {% render_field form.name type="text" name="name" class="form-control" placeholder="Name" %}
+                {% else %}
+                <select class="form-select" name="exercise-id">
+                    {% for exercise in exercises %}
+                    <option value="{{ exercise.id }}">{{ exercise }}</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
+                <button class="btn btn-success" type="submit">Add exercise</button>
+            </div>
+            <div class="text-danger">{{ form.name.errors|first }}</div>
+        </div>
+    </div>
+</form>
+{% else %}
+<!-- When view is returned without form (successful create), display the original button for creating exercises -->
+<button type="button" class="btn btn-success" data-bs-toggle="dropdown" aria-expanded="false">
+    Add exercise
+</button>
+<ul class="dropdown-menu">
+    <li><a class="dropdown-item" 
+        hx-get="{% url 'workouts:exercise_create' workout.id 1 %}" 
+        hx-swap="innerHTML" 
+        hx-target="#add-exercise">Add new</a>
+    </li>
+    <li><a class="dropdown-item" 
+        hx-get="{% url 'workouts:exercise_create' workout.id 0 %}" 
+        hx-swap="innerHTML" 
+        hx-target="#add-exercise">From existing</a>
+    </li>
+</ul>
+{% endif %}
+{% endwith %}
