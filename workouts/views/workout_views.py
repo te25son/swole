@@ -20,7 +20,6 @@ def home(request: HttpRequest) -> HttpResponse:
     return render(request, "home.html")
 
 
-
 @require_GET
 @login_required
 @non_entity_action(WorkoutsContext)

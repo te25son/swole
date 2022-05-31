@@ -26,7 +26,9 @@ class ExerciseRepository(Repository[Exercise]):
 
     @staticmethod
     def get_all_by_user(user: User) -> List[Exercise]:
-        return list(Exercise.objects.filter(workouts__user=user).order_by("name").distinct())
+        return list(
+            Exercise.objects.filter(workouts__user=user).order_by("name").distinct()
+        )
 
     @staticmethod
     def get_all_by_workout(workout_id: UUID) -> List[Exercise]:

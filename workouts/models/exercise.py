@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import CICharField
 from django.db import models
 from django.db.models.fields import Field
 
-from base.models.entity import Entity, EntityCreate, EntityUpdate
+from workouts.models.generic.entity import Entity, EntityCreate, EntityUpdate
 
 from .workout import Workout
 

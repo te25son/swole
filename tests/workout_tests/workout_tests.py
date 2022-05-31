@@ -12,8 +12,8 @@ from tests.conftest import RequestMethod
 from tests.factories import WorkoutFactory
 from users.models import User
 from workouts.forms import WorkoutCreateForm
-from workouts.models import Exercise, Workout
 from workouts.logic.workout_repository import WorkoutRepository
+from workouts.models import Exercise, Workout
 
 fake = faker.Faker()
 

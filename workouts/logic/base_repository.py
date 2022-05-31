@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 from uuid import UUID
 
-from base.models.entity import Entity, EntityCreate, EntityUpdate
+from workouts.models.generic.entity import Entity, EntityCreate, EntityUpdate
 
 _T = TypeVar("_T", bound=Entity)
 _TCreate = TypeVar("_TCreate", bound=EntityCreate)
