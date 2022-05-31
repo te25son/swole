@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.db.models.fields import Field
 
-from base.models.entity import Entity
+from workouts.models.generic.entity import Entity
 
 from .exercise import Exercise
 from .measurementUnits import MeasurementUnits

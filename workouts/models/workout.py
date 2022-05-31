@@ -6,8 +6,9 @@ from django.contrib.postgres.fields import CICharField
 from django.db import models
 from django.db.models.fields import Field
 
-from base.models.entity import EntityCreate, EntityUpdate, SafeEntity
 from users.models import User
+from workouts.models.generic.entity import EntityCreate, EntityUpdate
+from workouts.models.generic.safe_entity import SafeEntity
 
 
 @dataclass

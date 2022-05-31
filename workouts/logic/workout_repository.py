@@ -7,7 +7,6 @@ from workouts.models import Workout
 from workouts.models.workout import WorkoutCreate, WorkoutUpdate
 
 
-
 def copy_workout(id: UUID) -> Workout:
     original: Workout = Workout.objects.get(pk=id)
     original.pk = None
