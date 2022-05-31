@@ -7,11 +7,11 @@ from workouts.models.generic.entity import Entity
 
 
 class SafeEntityQuerySet(models.QuerySet):
-    def delete(self):
-        return super().update(deleted_at=timezone.now())
+    def delete(self) -> None:
+        super().update(deleted_at=timezone.now())
 
-    def hard_delete(self):
-        return super().delete()
+    def hard_delete(self) -> None:
+        super().delete()
 
 
 class SafeEntityManager(models.Manager):
@@ -24,11 +24,11 @@ class SafeEntityManager(models.Manager):
             return SafeEntityQuerySet(self.model).filter(deleted_at=None)
         return SafeEntityQuerySet(self.model)
 
-    def delete(self):
-        return self.get_queryset().delete()
+    def delete(self) -> None:
+        self.get_queryset().delete()
 
-    def hard_delete(self):
-        return self.get_queryset().hard_delete()
+    def hard_delete(self) -> None:
+        self.get_queryset().hard_delete()
 
 
 class SafeEntity(Entity):
@@ -40,9 +40,9 @@ class SafeEntity(Entity):
     class Meta:
         abstract = True
 
-    def delete(self):
+    def delete(self) -> None:
         self.deleted_at = timezone.now()
         self.save()
 
-    def hard_delete(self):
+    def hard_delete(self) -> None:
         super().delete()

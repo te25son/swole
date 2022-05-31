@@ -45,3 +45,4 @@ class Set(Entity):
 
     class Meta:
         app_label = "workouts"
+        indexes = [models.Index(fields=['name'])]
