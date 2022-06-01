@@ -39,6 +39,7 @@ class SafeEntity(Entity):
 
     class Meta:
         abstract = True
+        indexes = [models.Index(fields=["deleted_at"])]
 
     def delete(self) -> None:
         self.deleted_at = timezone.now()
