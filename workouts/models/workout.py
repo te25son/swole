@@ -35,4 +35,4 @@ class Workout(SafeEntity):
     class Meta:
         app_label = "workouts"
         unique_together = ["name", "date"]
-        indexes = [models.Index(fields=["user"])]
+        indexes = [models.Index(fields=["name", "-date"])]
